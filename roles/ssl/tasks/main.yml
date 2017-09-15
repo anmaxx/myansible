@@ -1,9 +1,9 @@
 ---
-  - name: Ensure OpenSSL is installed
+  - name: verify OpenSSL is installed
     package: name=openssl state=present
     tags: [ssl-certs,packages]
 
-  - name: Ensure ssl folder exist
+  - name: verify ssl folder exist
     file:
       path: "{{ ssl_certs_path }}"
       state: directory
@@ -79,7 +79,7 @@
     no_log: true
     tags: [ssl-certs,configuration]
 
-  - name: Generate strong DHE parameter - https://weakdh.org/
+  - name: Generate strong DHE parameter
     command: openssl dhparam -out {{ssl_certs_dhparam_path}} {{ssl_certs_dhparam_size}} creates={{ssl_certs_dhparam_path}}
     when: ssl_certs_generate_dh_param
     tags: [ssl-certs,configuration]
